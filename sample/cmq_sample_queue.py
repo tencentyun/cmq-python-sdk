@@ -13,12 +13,14 @@ from cmq.cmq_exception import CMQExceptionBase
 # 从腾讯云官网查看云api的密钥信息
 secretId = '您的secretId'
 secretKey = '您的secretKey'
+#当使用临时密钥时，请填写该参数
+token = "您的token"
 # 使用广州地域的消息服务
 endpoint = 'http://cmq-queue-gz.api.tencentyun.com'
 
 # 初始化 my_account, my_queue
 # Account类对象不是线程安全的，如果多线程使用，需要每个线程单独初始化Account类对象
-my_account = Account(endpoint, secretId, secretKey, debug=True)
+my_account = Account(endpoint, secretId, secretKey, token ,debug=True)
 my_account.set_log_level(logging.DEBUG)
 queue_name = sys.argv[1] if len(sys.argv) > 1 else "MySampleQueue"
 my_queue = my_account.get_queue(queue_name)

@@ -15,10 +15,11 @@ import sys
 URISEC = '/v2/index.php'
 
 class CMQClient:
-    def __init__(self, host, secretId, secretKey, version="SDK_Python_1.3", logger=None):
+    def __init__(self, host, secretId, secretKey, token= "",version="SDK_Python_1.3", logger=None):
         self.host, self.is_https = self.process_host(host)
         self.secretId = secretId
         self.secretKey = secretKey
+        self.token = token 
         self.version = version
         self.logger = CMQLogger.get_logger() if logger is None else logger
         self.http = CMQHttp(self.host, logger=logger, is_https=self.is_https)
@@ -32,6 +33,10 @@ class CMQClient:
         method: POST OR GET
         """
         self.method = method.upper()
+        
+    def set_token(self, token = ""):
+        self.token = token 
+
     def set_sign_method(self, sign_method='sha1'):
         '''
         @function : set sign method , and current support sha1 and sha256 method 
@@ -80,6 +85,8 @@ class CMQClient:
         _params = copy.deepcopy(params)
         _params['Action'] = action[0].upper() + action[1:]
         _params['RequestClient'] = self.version
+        if self.token != "":
+            _params['Token'] = self.token 
 
         if (_params.has_key('SecretId') != True):
             _params['SecretId'] = self.secretId

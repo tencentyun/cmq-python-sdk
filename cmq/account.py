@@ -10,7 +10,7 @@ class Account:
     """
     Account类对象不是线程安全的，如果多线程使用，需要每个线程单独初始化Account类对象
     """
-    def __init__(self, host, secretId, secretKey, debug=False):
+    def __init__(self, host, secretId, secretKey, token="",debug=False):
         """
             @type host: string
             @param host: 访问的url，例如：https://cmq-queue-gz.api.qcloud.com
@@ -21,14 +21,21 @@ class Account:
             @type secretKey: string
             @param secretKey: 用户的secretKey，腾讯云官网获取
 
+            @type token :string 
+            @param token : 用户临时密钥，默认为空字符串
+
             @note: Exception
             :: CMQClientParameterException host格式错误
+
         """
         self.secretId = secretId
         self.secretKey = secretKey
         self.debug = debug
         self.logger = CMQLogger.get_logger()
-        self.cmq_client = CMQClient(host, secretId, secretKey, logger=self.logger)
+        self.cmq_client = CMQClient(host, secretId, secretKey, token, logger=self.logger)
+    
+    def set_token(self, token=''):
+        self.cmq_client.set_sign(token)
         
     def set_sign(self, sign='sha256'):
         '''
