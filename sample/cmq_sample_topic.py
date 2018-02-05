@@ -21,8 +21,8 @@ from cmq.subscription import *
 # 从腾讯云官网查看云api的密钥信息
 secretId = '您的secretId'
 secretKey = '您的secretKey'
-# 使用广州地域的消息服务
-endpoint = 'http://cmq-queue-gz.api.tencentyun.com'
+# 请填写使用的消息服务域名
+endpoint = ''
 
 try:
 # 初始化 my_account
