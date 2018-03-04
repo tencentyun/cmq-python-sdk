@@ -87,6 +87,32 @@ try:
 
     subscription_meta = my_sub.get_attributes()
     my_sub.set_attributes(subscription_meta)
+
+ # public message without tags
+    message = Message()
+    message.msgBody = "this is a test message"
+    my_topic.publish_message(message)
+# public message with tags
+    message = Message("this is a test message", ["test", "york"])
+    my_topic.publish_message(message)
+
+
+# batch publish messge without tags
+    vmsg = []
+    for i in range(6):
+        message = Message()
+        message.msgBody = "this is a test message"
+        vmsg.append(message)
+
+    my_topic.batch_publish_message(vmsg)
+
+
+# batch publish messge  with tags
+    vmsg = []
+    for i in range(6):
+        message = Message("this  is a test message", ["test"])
+        vmsg.append(message)
+    my_topic.batch_publish_message(vmsg)
 # delete sub and topic_name
     my_sub.delete()
     my_topic.delete
