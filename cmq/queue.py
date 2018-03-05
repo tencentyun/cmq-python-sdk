@@ -237,33 +237,33 @@ class Queue:
 
     
     def __resp2meta__(self, queue_meta, resp):
-        if 'queueName' in resp.keys():
+        if 'queueName' in list(resp.keys()):
             queue_meta.queueName = resp['queueName']
-        if 'maxMsgHeapNum' in resp.keys():
+        if 'maxMsgHeapNum' in list(resp.keys()):
             queue_meta.maxMsgHeapNum = resp['maxMsgHeapNum']
-        if 'pollingWaitSeconds' in resp.keys():
+        if 'pollingWaitSeconds' in list(resp.keys()):
             queue_meta.pollingWaitSeconds = resp['pollingWaitSeconds']
-        if 'visibilityTimeout' in resp.keys():
+        if 'visibilityTimeout' in list(resp.keys()):
             queue_meta.visibilityTimeout = resp['visibilityTimeout']
-        if 'maxMsgSize' in resp.keys():
+        if 'maxMsgSize' in list(resp.keys()):
             queue_meta.maxMsgSize = resp['maxMsgSize']
-        if 'msgRetentionSeconds' in resp.keys():
+        if 'msgRetentionSeconds' in list(resp.keys()):
             queue_meta.msgRetentionSeconds = resp['msgRetentionSeconds']
-        if 'createTime' in resp.keys():
+        if 'createTime' in list(resp.keys()):
             queue_meta.createTime = resp['createTime']
-        if 'lastModifyTime' in resp.keys():
+        if 'lastModifyTime' in list(resp.keys()):
             queue_meta.lastModifyTime = resp['lastModifyTime']
-        if 'activeMsgNum' in resp.keys():
+        if 'activeMsgNum' in list(resp.keys()):
             queue_meta.activeMsgNum = resp['activeMsgNum']
-        if 'inactiveMsgNum' in resp.keys():
+        if 'inactiveMsgNum' in list(resp.keys()):
             queue_meta.inactiveMsgNum = resp['inactiveMsgNum']
-        if 'rewindSeconds' in resp.keys():
+        if 'rewindSeconds' in list(resp.keys()):
             queue_meta.rewindSeconds = resp['rewindSeconds']
-        if 'rewindmsgNum' in resp.keys():
+        if 'rewindmsgNum' in list(resp.keys()):
             queue_meta.rewindmsgNum = resp['rewindmsgNum']
-        if 'minMsgTime' in resp.keys():
+        if 'minMsgTime' in list(resp.keys()):
             queue_meta.minMsgTime = resp['minMsgTime']
-        if 'delayMsgNum' in resp.keys():
+        if 'delayMsgNum' in list(resp.keys()):
             queue_meta.delayMsgNum = resp['delayMsgNum']
 
 class QueueMeta:
@@ -323,7 +323,7 @@ class QueueMeta:
                      "rewindmsgNum":self.rewindmsgNum,
                      "minMsgTime":self.minMsgTime,
                      "delayMsgNum":self.delayMsgNum}
-        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in meta_info.items()])
+        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in list(meta_info.items())])
 
 class Message:
     def __init__(self, message_body="", message_tag=[]):
@@ -361,6 +361,6 @@ class Message:
                      "dequeueCount" : self.dequeueCount,
                      "receiptHandle" : self.receiptHandle,
                      "msgTag":self.msgTag}
-        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in msg_info.items()])
+        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in list(msg_info.items())])
     
     

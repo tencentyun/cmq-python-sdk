@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from cmq.cmq_client import CMQClient
-from queue import Queue
+from .queue import Queue
 from cmq.cmq_tool import CMQLogger
 from cmq.topic import Topic
 from cmq.subscription import Subscription
@@ -190,8 +190,8 @@ class Account:
     
     def debuginfo(self, RequestId):
         if self.debug:
-            print "===================DEBUG INFO==================="
-            print "RequestId: %s" % RequestId
-            print "================================================"
+            print("===================DEBUG INFO===================")
+            print("RequestId: %s" % RequestId)
+            print("================================================")
       
 	

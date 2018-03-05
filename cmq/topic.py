@@ -183,17 +183,17 @@ class Topic:
         return (ret_pkg['totalCount'], ret_pkg['subscriptionList'], next_offset)
       
     def __resp2meta__(self, topic_meta, resp):
-        if 'msgCount' in resp.keys():
+        if 'msgCount' in list(resp.keys()):
             topic_meta.msgCount = resp['msgCount']
-        if 'maxMsgSize' in resp.keys():
+        if 'maxMsgSize' in list(resp.keys()):
             topic_meta.maxMsgSize = resp['maxMsgSize']
-        if 'msgRetentionSeconds' in resp.keys():
+        if 'msgRetentionSeconds' in list(resp.keys()):
             topic_meta.msgRetentionSeconds = resp['msgRetentionSeconds']
-        if 'createTime' in resp.keys():
+        if 'createTime' in list(resp.keys()):
             topic_meta.createTime = resp['createTime']
-        if 'lastModifyTime' in resp.keys():
+        if 'lastModifyTime' in list(resp.keys()):
             topic_meta.lastModifyTime = resp['lastModifyTime']
-        if 'filterType' in resp.keys():
+        if 'filterType' in list(resp.keys()):
             topic_meta.filterType = resp['filterType']
 
         
@@ -223,7 +223,7 @@ class TopicMeta:
                      "maxMsgSize" : self.maxMsgSize,
                      "msgRetentionSeconds" : self.msgRetentionSeconds,
                      "filterType": self.filterType}
-        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in msg_info.items()])
+        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in list(msg_info.items())])
 
 
 
@@ -249,7 +249,7 @@ class Message:
         msg_info = {"msgBody" : self.msgBody,
                      "msgId" : self.msgId,
                      "msgTag":self.msgTag}
-        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in msg_info.items()])
+        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in list(msg_info.items())])
     
 
 

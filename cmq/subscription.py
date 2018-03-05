@@ -123,26 +123,26 @@ class Subscription:
         
           
     def __resp2meta__(self, subscription_meta, resp):
-        if 'topicOwner' in resp.keys():
+        if 'topicOwner' in list(resp.keys()):
             subscription_meta.TopicOwner = resp['topicOwner']
-        if 'endpoint' in resp.keys():
+        if 'endpoint' in list(resp.keys()):
             subscription_meta.maxMsgHeapNum = resp['endpoint']
-        if 'protocal' in resp.keys():
+        if 'protocal' in list(resp.keys()):
             subscription_meta.Protocal = resp['protocal']
-        if 'notifyStrategy' in resp.keys():
+        if 'notifyStrategy' in list(resp.keys()):
             subscription_meta.NotifyStrategy = resp['notifyStrategy']
-        if 'notifyContentFormat' in resp.keys():
+        if 'notifyContentFormat' in list(resp.keys()):
             subscription_meta.NotifyContentFormat = resp['notifyContentFormat']
-        if 'createTime' in resp.keys():
+        if 'createTime' in list(resp.keys()):
             subscription_meta.createTime = resp['createTime']
-        if 'lastModifyTime' in resp.keys():
+        if 'lastModifyTime' in list(resp.keys()):
             subscription_meta.lastModifyTime = resp['lastModifyTime']
-        if 'msgCount' in resp.keys():
+        if 'msgCount' in list(resp.keys()):
             subscription_meta.inactiveMsgNum = resp['msgCount']      
-        if 'filterTags' in resp.keys():
+        if 'filterTags' in list(resp.keys()):
             for tag in resp['filterTags']:
                 subscription_meta.FilterTag.append(tag)
-        if 'bindingKey' in resp.keys():
+        if 'bindingKey' in list(resp.keys()):
             for tag in resp['bindingKey']:
                 subscription_meta.bindingKey.append(tag)
                 
@@ -191,7 +191,7 @@ class SubscriptionMeta:
                      "lastModifyTime" : time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(self.lastModifyTime)),
                      "msgCount":self.msgCount,
                      "bindingKey": self.bindingKey,}
-        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in meta_info.items()])
+        return "\n".join(["%s: %s" % (k.ljust(30), v) for k, v in list(meta_info.items())])
 
 
     

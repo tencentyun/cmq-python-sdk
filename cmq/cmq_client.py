@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import copy
 import random
 from cmq.cmq_exception import *
 from cmq.cmq_tool import CMQLogger
 from cmq.cmq_http import CMQHttp, RequestInternal
-from sign import Sign
+from .sign import Sign
 import json
 import time
 import sys
@@ -81,16 +81,16 @@ class CMQClient:
         _params['Action'] = action[0].upper() + action[1:]
         _params['RequestClient'] = self.version
 
-        if (_params.has_key('SecretId') != True):
+        if (('SecretId' in _params) != True):
             _params['SecretId'] = self.secretId
 
-        if (_params.has_key('Nonce') != True):
-            _params['Nonce'] = random.randint(1, sys.maxint)
+        if (('Nonce' in _params) != True):
+            _params['Nonce'] = random.randint(1, sys.maxsize)
 
-        if (_params.has_key('Timestamp') != True):
+        if (('Timestamp' in _params) != True):
             _params['Timestamp'] = int(time.time())
             
-        if (_params.has_key('SignatureMethod') != True):
+        if (('SignatureMethod' in _params) != True):
             if self.sign_method == 'sha256':
                 _params['SignatureMethod'] = 'HmacSHA256'
             else:
@@ -99,7 +99,7 @@ class CMQClient:
         sign = Sign(self.secretId, self.secretKey)
         _params['Signature'] = sign.make(self.host, req_inter.uri, _params, req_inter.method, self.sign_method)
 
-        req_inter.data = urllib.urlencode(_params)
+        req_inter.data = urllib.parse.urlencode(_params)
 
         self.build_header(req_inter)
 
@@ -125,7 +125,7 @@ class CMQClient:
 
         # send request
         if None != params.get('UserpollingWaitSeconds'):
-	    UserTimeout = params.get('UserpollingWaitSeconds')
+            UserTimeout = params.get('UserpollingWaitSeconds')
         resp_inter = self.http.send_request(req_inter, UserTimeout)
 
         # handle result, make response
@@ -254,7 +254,7 @@ class CMQClient:
         ret = json.loads(resp_inter.data)
         if self.logger:
             self.logger.debug("BatchDeleteMessage RequestId:%s QueueName:%s ReceiptHandles\n%s" % \
-                (ret['requestId'], params['queueName'], "\n".join([str(params[key]) for key in params.keys() if 'receiptHandle.' in key])))
+                (ret['requestId'], params['queueName'], "\n".join([str(params[key]) for key in list(params.keys()) if 'receiptHandle.' in key])))
 
 #=======================================================topic operation====================================#
     def create_topic(self, params):

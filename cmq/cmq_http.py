@@ -3,7 +3,7 @@
 
 
 import socket
-from httplib import HTTPConnection, BadStatusLine, HTTPSConnection
+from http.client import HTTPConnection, BadStatusLine, HTTPSConnection
 from cmq.cmq_exception import CMQClientNetworkException
 
 class CMQHTTPConnection(HTTPConnection):
@@ -72,7 +72,7 @@ class CMQHttp:
             elif req_inter.method == 'POST':
                 self.conn.request(req_inter.method, req_inter.uri, req_inter.data, req_inter.header)
             else:
-                raise Exception, 'Method only support (GET, POST)'
+                raise Exception('Method only support (GET, POST)')
             self.conn.sock.settimeout(self.connection_timeout+int(UserTimeOut))
             self.conn.sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             try:
@@ -98,7 +98,7 @@ class CMQHttp:
             if self.logger:
                 self.logger.debug("GetResponse %s" % resp_inter)
             return resp_inter
-        except Exception,e:
+        except Exception as e:
             self.conn.close()
             raise CMQClientNetworkException(str(e))
 
@@ -113,7 +113,7 @@ class RequestInternal:
 
     def __str__(self):
         return "Method: %s\nUri: %s\nHeader: %s\nData: %s\n" % \
-                (self.method, self.uri, "\n".join(["%s: %s" % (k,v) for k,v in self.header.items()]), self.data)
+                (self.method, self.uri, "\n".join(["%s: %s" % (k,v) for k,v in list(self.header.items())]), self.data)
 
 class ResponseInternal:
     def __init__(self, status = 0, header = None, data = ""):
@@ -125,4 +125,4 @@ class ResponseInternal:
 
     def __str__(self):
         return "Status: %s\nHeader: %s\nData: %s\n" % \
-            (self.status, "\n".join(["%s: %s" % (k,v) for k,v in self.header.items()]), self.data)
+            (self.status, "\n".join(["%s: %s" % (k,v) for k,v in list(self.header.items())]), self.data)

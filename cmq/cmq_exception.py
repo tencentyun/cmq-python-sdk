@@ -64,7 +64,7 @@ class CMQServerNetworkException(CMQExceptionBase):
 
     def __str__(self):
         return "CMQServerNetworkException Status: %s\nHeader: %s\nData: %s\n" % \
-            (self.status, "\n".join(["%s: %s" % (k,v) for k,v in self.header.items()]), self.data)
+            (self.status, "\n".join(["%s: %s" % (k,v) for k,v in list(self.header.items())]), self.data)
 
 class CMQServerException(CMQExceptionBase):
     """ cmq处理异常

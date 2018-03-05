@@ -18,9 +18,9 @@ class Sign:
             new_params[param_key] = params[param_key]
         srcStr = method.upper() + requestHost + requestUri + '?' + "&".join(k.replace("_", ".") + "=" + str(new_params[k]) for k in sorted(new_params.keys()))
         if sign_method == 'sha1':
-            hashed = hmac.new(self.secretKey, srcStr, hashlib.sha1)
+            hashed = hmac.new(str.encode(self.secretKey), srcStr.encode('utf-8'), hashlib.sha1)
         elif sign_method == 'sha256':
-            hashed = hmac.new(self.secretKey, srcStr, hashlib.sha256)            
+            hashed = hmac.new(str.encode(self.secretKey), srcStr.encode('utf-8'), hashlib.sha256)
         return binascii.b2a_base64(hashed.digest())[:-1]
       
 def main():
@@ -28,7 +28,7 @@ def main():
     secretKey = 'xxx'
     params = {'a':1, 'b':2}
     sign = Sign(secretId, secretKey)
-    print sign.make('cmq-gz.api.qcloud.com', '/v2/index.php', params)
+    print(sign.make('cmq-gz.api.qcloud.com', '/v2/index.php', params))
 
 if (__name__ == '__main__'):
     main()
