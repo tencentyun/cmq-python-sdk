@@ -139,10 +139,10 @@ class Subscription:
             subscription_meta.lastModifyTime = resp['lastModifyTime']
         if 'msgCount' in list(resp.keys()):
             subscription_meta.inactiveMsgNum = resp['msgCount']      
-        if 'filterTags' in list(resp.keys()):
+        if 'filterTags' in list(resp.keys()) and resp['filterTags'] is not None:
             for tag in resp['filterTags']:
                 subscription_meta.FilterTag.append(tag)
-        if 'bindingKey' in list(resp.keys()):
+        if 'bindingKey' in list(resp.keys()) and resp['bindingKey'] is not  None:
             for tag in resp['bindingKey']:
                 subscription_meta.bindingKey.append(tag)
                 

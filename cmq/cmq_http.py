@@ -7,8 +7,8 @@ from http.client import HTTPConnection, BadStatusLine, HTTPSConnection
 from cmq.cmq_exception import CMQClientNetworkException
 
 class CMQHTTPConnection(HTTPConnection):
-    def __init__(self, host, port=None, strict=None):
-        HTTPConnection.__init__(self, host, port, strict)
+    def __init__(self, host, port=None):
+        HTTPConnection.__init__(self, host, port)
         self.request_length = 0
 
     def send(self, astr):
@@ -20,8 +20,8 @@ class CMQHTTPConnection(HTTPConnection):
         HTTPConnection.request(self, method, url, body, headers)
 
 class CMQHTTPSConnection(HTTPSConnection):
-    def __init__(self, host, port=None, strict=None):
-        HTTPSConnection.__init__(self, host, port, strict=strict)
+    def __init__(self, host, port=None):
+        HTTPSConnection.__init__(self, host, port)
         self.request_length = 0
 
     def send(self, astr):

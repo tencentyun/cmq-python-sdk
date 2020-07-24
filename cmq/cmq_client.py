@@ -371,7 +371,7 @@ class CMQClient:
         ret = json.loads(resp_inter.data)
         if self.logger:
             self.logger.debug("Set subscription Attributes RequestId:%s TopicName:%s" % \
-                (ret['requestId'], params['topicName']))
+                (ret['requestId'] if 'requestId' in ret else '', params['topicName'] if 'topicName' in ret else '' ))
 
 
     def get_subscription_attributes(self, params):
