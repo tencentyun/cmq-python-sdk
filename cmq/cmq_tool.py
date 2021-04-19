@@ -1,10 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
-import sys
-import string
-import types
+import os
 import logging
 import logging.handlers
 from cmq.cmq_exception import *
@@ -14,10 +11,18 @@ PERMISSION_ACTIONS = ["setqueueattributes", "getqueueattributes", "sendmessage",
 
 class CMQLogger:
     @staticmethod
+    def get_stream_logger(log_name="CMQ_python_sdk", log_level=logging.INFO):
+        logger = logging.getLogger(log_name)
+        logger.addHandler(logging.StreamHandler())
+        logger.setLevel(log_level)
+        return logger
+
+    @staticmethod
     def get_logger(log_name="CMQ_python_sdk", log_file="CMQ_python_sdk.log", log_level=logging.INFO):
         logger = logging.getLogger(log_name)
         if logger.handlers == []:
-            fileHandler = logging.handlers.RotatingFileHandler(log_file, maxBytes=10*1024*1024)
+            base_path = os.path.split(os.path.abspath(__file__))[0]
+            fileHandler = logging.handlers.RotatingFileHandler(os.path.join(base_path, log_file), maxBytes=10*1024*1024)
             formatter = logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] [%(filename)s:%(lineno)d] [%(thread)d] %(message)s', '%Y-%m-%d %H:%M:%S')
             fileHandler.setFormatter(formatter)
             logger.addHandler(fileHandler)
