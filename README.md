@@ -19,3 +19,18 @@ Only support these data flow actions:
     - QueryTopicRoute
     - PublishMessage
     - BatchPublishMessage
+
+Install from source:
+
+```bash
+python2 setup.py install
+```
+
+Example:
+
+- [queue](sample/cmq_sample_queue.py)
+- [topic](sample/cmq_sample_topic.py)
+
+Python3 SDK:
+
+https://github.com/tencentyun/cmq-python-sdk/tree/python3
