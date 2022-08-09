@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-import os
 from setuptools import setup, find_packages
 
 setup(
-    name='qcloud-cmq-sdk-py3',
-    version=0.1,
-    description='Tencent Cloud SDK for CMQ API 2.0 running in python3',
-    author='Tencent Cloud CMQ Team',
+    name='tcmq-python3-sdk',
+    version="1.0",
+    description='Tencent Cloud SDK for TCMQ API 2.0 running in python3',
+    author='Tencent Cloud TCMQ Team',
     url='https://github.com/tencentyun/cmq-python-sdk/tree/python3',
     maintainer_email="yorkxyzhang@tencent.com",
     scripts=[],
