@@ -27,9 +27,12 @@ class Account:
         self.secretId = secretId
         self.secretKey = secretKey
         self.debug = debug
-        self.logger = CMQLogger.get_logger()
+        if debug:
+            self.logger = CMQLogger.get_logger()
+        else:
+            self.logger = CMQLogger.get_stream_logger()
         self.cmq_client = CMQClient(host, secretId, secretKey, logger=self.logger)
-        
+
     def set_sign(self, sign='sha256'):
         '''
           @fucntion set_sign : set sign method 
