@@ -20,6 +20,13 @@ Only support these data flow actions:
     - PublishMessage
     - BatchPublishMessage
 
+Install by pip3:
+
+```bash
+# https://pypi.org/project/qcloud-cmq-sdk-py3/
+pip3 install qcloud-cmq-sdk-py3
+```
+
 Install from source:
 
 ```bash
